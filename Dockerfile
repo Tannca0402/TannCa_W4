@@ -7,7 +7,7 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 RUN sed -i 's/port="8005" shutdown="SHUTDOWN"/port="-1" shutdown="SHUTDOWN"/' /usr/local/tomcat/conf/server.xml
 
 # Copy file WAR vào Tomcat
-COPY Mail-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+COPY Week4-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
