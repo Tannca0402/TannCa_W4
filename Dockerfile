@@ -1,7 +1,15 @@
+FROM tomcat:10.1
 
-# Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-# Click nbfs://nbhost/SystemFileSystem/Templates/Other/Dockerfile to edit this template
+# Xóa các ứng dụng mặc định
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-FROM alpine:latest
+# Đổi cổng shutdown mặc định thành -1 để vô hiệu hóa lệnh shutdown qua socket
+RUN sed -i 's/port="8005" shutdown="SHUTDOWN"/port="-1" shutdown="SHUTDOWN"/' /usr/local/tomcat/conf/server.xml
 
-CMD ["/bin/sh"]
+# Copy file WAR vào Tomcat
+COPY Mail-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+
+EXPOSE 8080
+
+# Chạy Tomcat ở chế độ foreground
+CMD ["catalina.sh", "run"]
